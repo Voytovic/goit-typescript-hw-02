@@ -19,6 +19,7 @@
   position: relative;
 }
 .button {
+  cursor: pointer;
   position: absolute;
   left: 1px;
   top: 45%;
@@ -26,4 +27,8 @@
   color: white;
   background-color: red;
   border-radius: 10%;
+}
+
+.searchBar:focus {
+  outline: none;
 }

@@ -9,7 +9,6 @@
 }
 .galleryItem {
   flex-basis: calc((100% - 10px * 3) / 4);
-
   max-width: 400px;
   width: 100%;
 }

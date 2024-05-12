@@ -11,18 +11,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSetSearchQuery, toast }) => {
     e.preventDefault();
     const value = (e.target as HTMLFormElement).search.value;
     if (value.trim() === "") {
-      toast(
-        "Please enter text to search for images!"
-        // {
-        //   icon: "👀",
-        //   style: {
-        //     borderRadius: "10px",
-        //     background: "#333",
-        //     color: "#fff",
-        //   },
-        // }
-      );
-
+      toast("Please enter text to search for images!");
       return;
     }
     onSetSearchQuery(value.trim());
@@ -30,16 +19,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSetSearchQuery, toast }) => {
   };
   return (
     <header className={css.header}>
-      <form className={css.searchForm} onSubmit={onSubmit}>
+      <form className={css.form} onSubmit={onSubmit}>
         <input
-          className={css.searchField}
+          className={css.searchBar}
           name="search"
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
         />
-        <button className={css.searchBtn} title="Pres for search" type="submit">
+        <button className={css.button} title="Pres for search" type="submit">
           🔎
         </button>
       </form>

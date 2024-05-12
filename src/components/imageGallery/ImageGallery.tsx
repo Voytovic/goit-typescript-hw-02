@@ -10,11 +10,11 @@ interface ImageCardProps {
 
 const ImageGallery: React.FC<ImageCardProps> = ({ images, openModal }) => {
   return (
-    <ul className={css.imagesList}>
+    <ul className={css.gallery}>
       {Array.isArray(images) &&
         images.map((image) => {
           return (
-            <li className={css.imageItem} key={image.id}>
+            <li className={css.gallaryItem} key={image.id}>
               <ImageCard image={image} openModal={openModal} />
             </li>
           );
