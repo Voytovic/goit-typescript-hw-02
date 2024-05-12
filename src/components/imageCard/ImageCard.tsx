@@ -1,30 +1,20 @@
-import React from "react";
 import css from "./ImageCard.module.css";
+import { Image } from "../../types";
+import React from "react";
 
-interface Image {
-  urls: {
-    small: string;
-  };
-  description: string;
+interface ImageCardProps {
+  image: Image;
+  openModal: (id: string) => void;
 }
 
-interface Props {
-  item: Image;
-  openModal: (item: Image) => void;
-}
-
-const ImageCard: React.FC<Props> = ({ item, openModal }) => {
-  const handleClick = () => {
-    openModal(item);
-  };
-
+const ImageCard: React.FC<ImageCardProps> = ({ image, openModal }) => {
   return (
-    <div className={css.imgItem}>
+    <div className={css.imgContainer}>
       <img
-        className={css.img}
-        src={item.urls.small}
-        alt={item.description}
-        onClick={handleClick}
+        onClick={() => openModal(image.id)}
+        className={css.image}
+        src={image.urls.small}
+        alt={image.alt_description}
       />
     </div>
   );

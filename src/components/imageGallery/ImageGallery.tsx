@@ -1,20 +1,26 @@
-import React from "react";
-import ImageCard, { Image } from "../imageCard/ImageCard";
+import ImageCard from "../imageCard/ImageCard";
 import css from "./ImageGallery.module.css";
+import { Image } from "../../types";
+import React from "react";
 
-interface Props {
-  items: Image[]; // Припускаючи, що items містить масив об'єктів типу Image
-  openModal: (item: Image) => void;
+interface ImageCardProps {
+  images: Image[];
+  openModal: (id: string) => void;
 }
 
-const ImageGallery: React.FC<Props> = ({ items, openModal }) => (
-  <ul className={css.gallery}>
-    {items.map((item) => (
-      <li className={css.galleryItem} key={item.id}>
-        <ImageCard item={item} openModal={() => openModal(item)} />
-      </li>
-    ))}
-  </ul>
-);
+const ImageGallery: React.FC<ImageCardProps> = ({ images, openModal }) => {
+  return (
+    <ul className={css.imagesList}>
+      {Array.isArray(images) &&
+        images.map((image) => {
+          return (
+            <li className={css.imageItem} key={image.id}>
+              <ImageCard image={image} openModal={openModal} />
+            </li>
+          );
+        })}
+    </ul>
+  );
+};
 
 export default ImageGallery;

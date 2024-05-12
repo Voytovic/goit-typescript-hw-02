@@ -1,11 +1,19 @@
-import React from 'react';
-import { DNA } from 'react-loader-spinner';
-import css from './Loader.module.css';
-
-const Loader: React.FC = () => {
+import { MagnifyingGlass } from "react-loader-spinner";
+import css from "./Loader.module.css";
+import React from "react";
+const Loader = () => {
   return (
     <div className={css.loader}>
-      <DNA height={80} width={80} />
+      <MagnifyingGlass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="magnifying-glass-loading"
+        wrapperStyle={{}}
+        wrapperClass="magnifying-glass-wrapper"
+        glassColor="#c0efff"
+        color="#e15b64"
+      />
     </div>
   );
 };

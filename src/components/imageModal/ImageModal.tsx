@@ -1,51 +1,57 @@
-import React from 'react';
-import css from './ImageModal.module.css';
-import Modal from 'react-modal';
+import Modal from "react-modal";
+import css from "./ImageModal.module.css";
+import { Image } from "../../types";
+import React from "react";
 
-interface Image {
-  urls: {
-    regular: string,
-  };
-  description: string;
-}
-
-interface Props {
-  item: Image;
-  isOpen: boolean;
+interface ImageModalProps {
   closeModal: () => void;
+  modalIsOpen: boolean;
+  modalImage: Image | null;
 }
 
-const ImageModal: React.FC<Props> = ({ item, isOpen, closeModal }) => {
-  const customStyles: Modal.Styles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      width: '750px',
-      height: '750px',
-      overflow: 'hidden',
-      backgroundColor: '',
-      border: 'none',
-    },
-    overlay: {
-      backgroundColor: 'rgba(43, 88, 84, 0.678)',
-    },
-  };
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
+Modal.setAppElement("#root");
+const ImageModal: React.FC<ImageModalProps> = ({
+  closeModal,
+  modalIsOpen,
+  modalImage,
+}) => {
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
-      <div className={css.wrapper}>
-        <img
-          className={css.img}
-          src={item.urls.regular}
-          alt={item.description}
-        />
-      </div>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      {modalImage && (
+        <div className={css.modalContainer}>
+          <div className={css.imgContainer}>
+            <img
+              className={css.modalImg}
+              src={modalImage.urls.regular}
+              alt={modalImage.slug}
+            />
+          </div>
+          <div className={css.descContainer}>
+            <p className={css.imgDesc}>{modalImage.alt_description}</p>
+            <p className={css.imgLikes}>👍: {modalImage.likes}</p>
+          </div>
+        </div>
+      )}
     </Modal>
   );
 };
-
 export default ImageModal;

@@ -1,42 +1,46 @@
 import React from "react";
-import { TbPhotoSearch } from "react-icons/tb";
-import toast from "react-hot-toast";
 import css from "./SearchBar.module.css";
 
-interface Props {
-  onSubmit: (query: string) => void;
+interface SearchBarProps {
+  onSetSearchQuery: (query: string) => void;
+  toast: (message: string) => void;
 }
 
-const SearchBar: React.FC<Props> = ({ onSubmit }) => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSetSearchQuery, toast }) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const value = (e.target as HTMLFormElement).search.value;
+    if (value.trim() === "") {
+      toast(
+        "Please enter text to search for images!"
+        // {
+        //   icon: "👀",
+        //   style: {
+        //     borderRadius: "10px",
+        //     background: "#333",
+        //     color: "#fff",
+        //   },
+        // }
+      );
 
-    const target = e.target as typeof e.target & {
-      query: { value: string };
-    };
-
-    const query = target.query.value.trim();
-
-    if (query === "") {
-      toast.error("Please enter a request");
       return;
     }
-
-    onSubmit(query);
-    e.currentTarget.reset();
+    onSetSearchQuery(value.trim());
+    (e.target as HTMLFormElement).reset();
   };
-
   return (
     <header className={css.header}>
-      <form className={css.form} onSubmit={handleSubmit}>
+      <form className={css.searchForm} onSubmit={onSubmit}>
         <input
-          className={css.searchBar}
+          className={css.searchField}
+          name="search"
           type="text"
-          name="query"
+          autoComplete="off"
+          autoFocus
           placeholder="Search images and photos"
         />
-        <button className={css.button} type="submit">
-          <TbPhotoSearch size="25" />
+        <button className={css.searchBtn} title="Pres for search" type="submit">
+          🔎
         </button>
       </form>
     </header>
